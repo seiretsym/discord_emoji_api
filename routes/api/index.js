@@ -18,14 +18,42 @@ Object.prototype.isEmpty = function() {
   return true;
 }
 
+function setCategory(req) {
+  switch(req.query.category) {
+    case "activities":
+      return {...activities};
+    case "flags":
+      return {...flags};
+    case "food":
+      return {...food};
+    case "nature":
+      return {...nature};
+    case "objects":
+      return {...objects};
+    case "people":
+      return {...people};
+    case "symbols":
+      return {...symbols};
+    case "travel":
+      return {...travel};
+    case "all":
+      return {...activities, ...flags, ...food, ...nature, ...objects, ...people, ...symbols, ...travel};
+    default:
+      return {
+        query: req.query,
+        error: `category '${req.query.category}' not found in emoji list`,
+        code: 404,
+      };
+  }
+}
+
 // route to specific apis
 router.route("/emoji")
   .get((req, res) => {
     // check if query is empty
     if (!req.query.isEmpty()) {
-      if (req.query.category) {
-        console.log("category found")
-      };
+      const data = setCategory(req);
+      res.json(data);
     } else {
       // if query is empty, return all categories
       const data = {
