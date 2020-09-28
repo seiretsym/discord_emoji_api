@@ -28,9 +28,18 @@ router.route("/emoji")
       };
     } else {
       // if query is empty, return all categories
-      
-    }
-    res.json(req.query);
+      const data = {
+        ...activities,
+        ...flags,
+        ...food,
+        ...nature,
+        ...objects,
+        ...people,
+        ...symbols,
+        ...travel
+      };
+      res.json(data);
+    };
   })
 
 module.exports = router;
