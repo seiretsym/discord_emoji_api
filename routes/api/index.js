@@ -18,7 +18,7 @@ Object.prototype.isEmpty = function() {
   return true;
 }
 
-function setCategory(req) {
+function filterCategory(req) {
   switch(req.query.category) {
     case "activities":
       return {...activities};
@@ -37,7 +37,16 @@ function setCategory(req) {
     case "travel":
       return {...travel};
     case "all":
-      return {...activities, ...flags, ...food, ...nature, ...objects, ...people, ...symbols, ...travel};
+      return [
+        ...activities.activities,
+        ...flags.flags,
+        ...food.food,
+        ...nature.nature,
+        ...objects.objects,
+        ...people.people,
+        ...symbols.symbols,
+        ...travel.travel
+      ]
     default:
       return {
         query: req.query,
@@ -47,12 +56,28 @@ function setCategory(req) {
   }
 }
 
+function filterEmojis(req) {
+  const query = req.query.q;
+  const data = filterCategory(req);
+  console.log(data[req.query.category]);
+  if (!data.error) {
+    let filter;
+    if (req.query.category === "all") {
+      filter = data.filter(emoji => emoji.name.includes(query));
+    } else {
+      filter = data[req.query.category].filter(emoji => emoji.name.includes(query));
+    }
+    return filter;
+  }
+  return data;
+}
+
 // route to specific apis
 router.route("/emoji")
   .get((req, res) => {
     // check if query is empty
     if (!req.query.isEmpty()) {
-      const data = setCategory(req);
+      const data = filterEmojis(req);
       res.json(data);
     } else {
       // if query is empty, return all categories
