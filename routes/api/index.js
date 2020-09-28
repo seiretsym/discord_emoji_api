@@ -19,7 +19,7 @@ Object.prototype.isEmpty = function() {
 }
 
 function filterCategory(req) {
-  switch(req.query.category) {
+  switch(req.query.category.toLowerCase()) {
     case "activities":
       return {...activities};
     case "flags":
@@ -57,7 +57,7 @@ function filterCategory(req) {
 }
 
 function filterEmojis(req) {
-  const query = req.query.q;
+  const query = req.query.name;
   const data = filterCategory(req);
   console.log(data[req.query.category]);
   if (!data.error) {
@@ -80,7 +80,7 @@ router.route("/emoji")
       const data = filterEmojis(req);
       res.json(data);
     } else {
-      // if query is empty, return all categories
+      // if query is empty, return all emojis
       const data = {
         ...activities,
         ...flags,

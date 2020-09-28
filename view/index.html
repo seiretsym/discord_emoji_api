@@ -4,8 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Discord Emoji API</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
-<body>
-  <p>Work in Progress!</p>
+<body class="bg-dark text-light">
+  <div class="container">
+    <h1 class="text-center m-3">Discord Emoji API Documentation</h1>
+    <hr/>
+    <h5><span class="font-weight-bold text-warning">GET</span> /api/emoji</h5>
+    <p>Retrieve Emoji information</p>
+    <br/>
+    <h5 class="font-weight-bold">Query Parameters</h5>
+    <table class="table table-bordered text-light">
+      <thead>
+        <tr>
+          <th scope="col">Field</th>
+          <th scope="col">Type</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>name</td>
+          <td>string</td>
+          <td>Name of the emoji. It doesn't have to be exact. If the emoji name contains the string specified here, it will show in the results.</td>
+        </tr>
+        <tr>
+          <td>category</td>
+          <td>string</td>
+          <td class="p-0">
+              <li class="list-group-item bg-dark">Acceptable Categories</li>
+              <li class="list-group-item bg-dark">all, activities, flags, food, nature, objects, people, symbols, travel</li>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br/>
+    <h5 class="font-weight-bold">Example</h5>
+    <span class="text-warning">GET</span> /api/emoji?name=heart&category=people
+    <br/>
+    <br/>
+    <p class="m-0">Would return this JSON object</p>
+    <pre class="text-secondary" style="background-color: #111">
+      <code>
+  [
+    {
+      "name": ":heart_eyes:",
+      "unicode": "😍",
+      "url": "https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png",
+      "backgroundPosition": "-480px 0px",
+      "backgroundSize": "1344px 1152px"
+    },
+    {
+      "name": ":smiling_face_with_3_hearts:",
+      "unicode": "🥰",
+      "url": "https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png",
+      "backgroundPosition": "-512px 0px",
+      "backgroundSize": "1344px 1152px"
+    },
+    {
+      "name": ":kissing_heart:",
+      "unicode": "😘",
+      "url": "https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png",
+      "backgroundPosition": "-544px 0px",
+      "backgroundSize": "1344px 1152px"
+    },
+    {
+      "name": ":heart_eyes_cat:",
+      "unicode": "😻",
+      "url": "https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png",
+      "backgroundPosition": "-704px -64px",
+      "backgroundSize": "1344px 1152px"
+    },
+    {
+      "name": ":couple_with_heart:",
+      "unicode": "💑",
+      "url": "https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png",
+      "backgroundPosition": "-480px -96px",
+      "backgroundSize": "1344px 1152px"
+    },
+    {
+      "name": ":couple_with_heart_woman_man:",
+      "unicode": "👩‍❤️‍👨",
+      "url": "https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png",
+      "backgroundPosition": "-512px -96px",
+      "backgroundSize": "1344px 1152px"
+    }
+  ]
+    </code></pre>
+    <br/>
+    <h5>Usage</h5>
+    <p class="m-0">To use, we have to style an html (preferably a div) element/tag with <code>background-image</code>, <code>background-size</code>, and <code>background-position</code> </p>
+    <pre class="text-secondary" style="background-color: #111;"><code>
+  &lt;div style="
+    background-image: url('https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png');
+    background-position: -512px -96px;
+    background-size: 1344px 1152px;
+    width: 32px;
+    height: 32px;"&gt;&lt;/div&gt;
+    </code></pre>
+    <p>Would give us this emoji:
+      <div style="background-image: url('https://discord.com/assets/7b423a7d402beedfecb0bb81f9704953.png'); background-position: -512px -96px; background-size: 1344px 1152px; width: 32px; height: 32px;"></div>
+    </p>
+  </div>
 </body>
 </html>
