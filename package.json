@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/seiretsym/discord_emoji_api/issues"
   },
-  "homepage": "https://github.com/seiretsym/discord_emoji_api#readme"
+  "homepage": "https://github.com/seiretsym/discord_emoji_api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
