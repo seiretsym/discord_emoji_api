@@ -19,7 +19,8 @@ Object.prototype.isEmpty = function() {
 }
 
 function filterCategory(req) {
-  switch(req.query.category.toLowerCase()) {
+  const option = req.query.category || ""
+  switch(option) {
     case "activities":
       return {...activities};
     case "flags":
@@ -36,6 +37,7 @@ function filterCategory(req) {
       return {...symbols};
     case "travel":
       return {...travel};
+    case "":
     case "all":
       return [
         ...activities.activities,
@@ -59,10 +61,9 @@ function filterCategory(req) {
 function filterEmojis(req) {
   const query = req.query.name;
   const data = filterCategory(req);
-  console.log(data[req.query.category]);
   if (!data.error) {
     let filter;
-    if (req.query.category === "all") {
+    if (req.query.category === "all" || req.query.category === undefined) {
       filter = data.filter(emoji => emoji.name.includes(query));
     } else {
       filter = data[req.query.category].filter(emoji => emoji.name.includes(query));
