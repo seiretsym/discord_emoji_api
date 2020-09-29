@@ -19,7 +19,7 @@ Object.prototype.isEmpty = function() {
 }
 
 function filterCategory(req) {
-  const option = req.query.category || ""
+  const option = req.query.category || "";
   switch(option) {
     case "activities":
       return {...activities};
@@ -63,12 +63,16 @@ function filterEmojis(req) {
   const data = filterCategory(req);
   if (!data.error) {
     let filter;
-    if (req.query.category === "all" || req.query.category === undefined) {
-      filter = data.filter(emoji => emoji.name.includes(query));
+    if (req.query.name !== undefined) {
+      if (req.query.category === "all" || req.query.category === undefined) {
+        filter = data.filter(emoji => emoji.name.includes(query));
+      } else {
+        filter = data[req.query.category].filter(emoji => emoji.name.includes(query));
+      }
+      return filter;
     } else {
-      filter = data[req.query.category].filter(emoji => emoji.name.includes(query));
+      return data;
     }
-    return filter;
   }
   return data;
 }
